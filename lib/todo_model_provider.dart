@@ -1,39 +1,26 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:to_do_list_app/todo_model.dart';
 
-class ToDoModelProvider extends ChangeNotifier{
+class ToDoModelProvider extends ChangeNotifier {
+  List<TodoModel> taskList = [];
 
-  List<TodoModel> taskList = [
-    // TodoModel(1,title: 'one task',
-    // description: 'descr1'),
- 
-    // TodoModel(2,title: 'two task',
-    // description: 'descr2'),
-    
-  ];
-  
+  void toggle(int id) {
+    var todoModel = taskList.firstWhere((element) => element.id == id);
+    todoModel.isChacked = !todoModel.isChacked;
+    notifyListeners();
+  }
 
+  void addTask(String title, String description) {
+    taskList.add(TodoModel(
+      taskList.length + 1,
+      title: title,
+      description: description,
+    ));
+    notifyListeners();
+  }
 
-  void toggle(int id){
-    var todoModel =  taskList.firstWhere((element) => element.id == id);
-        todoModel.isChacked = !todoModel.isChacked;
-      notifyListeners(); 
-    }
-
-    void addTask(String title, String description){
-      taskList.add(TodoModel(
-        taskList.length+1,
-        title: title,
-        description: description,
-       ));
-       notifyListeners(); 
-    }
-
-    void deleteProduct(int id){
-     taskList.removeWhere((pId) => pId.id == id);
-     notifyListeners(); 
- }
-
-    
+  void deleteProduct(int id) {
+    taskList.removeWhere((pId) => pId.id == id);
+    notifyListeners();
+  }
 }
